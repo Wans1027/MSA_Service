@@ -27,12 +27,15 @@ import java.util.List;
 @Slf4j
 public class KafkaConsumerConfig {
 
+
+
+    //채팅 컨슈머
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, ResponseMessageDto> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, ResponseMessageDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
-        ContainerProperties prop = factory.getContainerProperties();
-        prop.setConsumerRebalanceListener(rebalanceListener());
+        //ContainerProperties prop = factory.getContainerProperties();
+        //prop.setConsumerRebalanceListener(rebalanceListener());
         return factory;
     }
 
@@ -54,19 +57,46 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(), deserializer);
     }
 
+    //멤버 컨슈머
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, String> memberKafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(memberConsumerFactory());
+        ContainerProperties prop = factory.getContainerProperties();
+        prop.setConsumerRebalanceListener(rebalanceListener());
+        return factory;
+    }
+    @Bean
+    public ConsumerFactory<String, String> memberConsumerFactory() {
+
+        ImmutableMap<String, Object> config = ImmutableMap.<String, Object>builder()
+                .put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKER)
+                .put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class)
+                .put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class)
+                .put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest")
+                .put("group.id", KafkaConstants.GROUP_ID)
+                .build();
+
+        return new DefaultKafkaConsumerFactory<>(config);
+    }
+
+
+
+    //파티션 리스너
     @Bean
     public ConsumerAwareRebalanceListener rebalanceListener() {
         return new ConsumerAwareRebalanceListener() {
             @Override
             public void onPartitionsAssigned(Consumer<?, ?> consumer, Collection<TopicPartition> partitions) {
                 // here partitions
-                List<Integer> partList = new ArrayList<>();
+                //List<Integer> partList = new ArrayList<>();
                 for (TopicPartition partition : partitions) {
                     int partition1 = partition.partition();
-                    partList.add(partition1);
+                    //partList.add(partition1);
                     log.info("사용중인파티션:{}", partition1);
                 }
-                KafkaConstants.partitionList = partList;
+                //KafkaConstants.partitionList = partList;
             }
         };
     }
