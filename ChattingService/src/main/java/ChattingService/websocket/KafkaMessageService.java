@@ -4,6 +4,7 @@ import ChattingService.dto.MessageDto;
 import ChattingService.dto.ResponseMessageDto;
 import ChattingService.exception.RestException;
 import ChattingService.kafka.KafkaConstants;
+import ChattingService.kafka.KafkaMemberConstants;
 import ChattingService.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,16 @@ public class KafkaMessageService {
         //sendingOperations.convertAndSend("/topic/"+messageDto.getRoomId(),messageDto);
         template.convertAndSend("/topic/"+responseMessageDto.getRoomId(),responseMessageDto);
 
+    }
+    private final KafkaTemplate<String, String> kafkaTemplateMember;
+
+    public void sendMemberTopic(){
+        String data = "tjddns";
+        kafkaTemplateMember.send(KafkaMemberConstants.KAFKA_TOPIC, data);
+    }
+    @KafkaListener(topics = KafkaMemberConstants.KAFKA_TOPIC, groupId = KafkaMemberConstants.GROUP_ID, containerFactory = "memberKafkaListenerContainerFactory")
+    public void consume0(String data) {
+        log.info("data:{}",data);
     }
 
 

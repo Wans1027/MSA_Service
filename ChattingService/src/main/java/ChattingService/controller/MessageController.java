@@ -37,4 +37,9 @@ public class MessageController {
     public void testKafka(@RequestBody MessageDto messageDto){
         kafkaMessageService.send(KafkaConstants.KAFKA_TOPIC, messageDto);
     }
+
+    @GetMapping("/test2")
+    public void sendMember(){
+        kafkaMessageService.sendMemberTopic();
+    }
 }
