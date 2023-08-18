@@ -78,27 +78,6 @@ public class KafkaConsumerConfig {
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
-    /*@Bean
-    public ConsumerFactory<String, String> memberConsumerFactory() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaMemberConstants.KAFKA_BROKER);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, KafkaMemberConstants.GROUP_ID);
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class);
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-        return new DefaultKafkaConsumerFactory<>(props);
-    }
-
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String>
-    memberKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, String> factory
-                = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(memberConsumerFactory());
-        return factory;
-    }*/
 
 
     //파티션 리스너

@@ -1,6 +1,7 @@
 package ChattingService.controller;
 
 import ChattingService.dto.MessageDto;
+import ChattingService.dto.Result;
 import ChattingService.entity.Message;
 import ChattingService.kafka.KafkaConstants;
 import ChattingService.service.MessageService;
@@ -29,8 +30,9 @@ public class MessageController {
     }
 
     @GetMapping("/list/{roomId}")
-    public List<Message> getMessages(@PathVariable Long roomId){
-        return messageService.getEventList(roomId);
+    public Result<Message> getMessages(@PathVariable Long roomId){
+        List<Message> messages = messageService.getEventList(roomId);
+        return new Result<>(messages, messages.size());
     }
 
     @PostMapping("/test")
