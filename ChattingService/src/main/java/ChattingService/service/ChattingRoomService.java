@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -19,11 +21,24 @@ public class ChattingRoomService {
     @Transactional
     public Long createNewChattingRoom(Long memberId, String chattingRoomName){
         ChattingRoom room = new ChattingRoom(chattingRoomName,1,"OPEN_CHAT");
-        ChattingRoom savedChattingRoom = chattingRoomRepository.save(room);
-        ChatParticipation chatParticipation = new ChatParticipation(savedChattingRoom, memberId);
+        ChattingRoom save = chattingRoomRepository.save(room);
+        ChatParticipation chatParticipation = new ChatParticipation(save, memberId);
         chatParticipationRepository.save(chatParticipation);
-        return savedChattingRoom.getId();
+        return save.getId();
     }
-
+    @Transactional
+    public void inviteChattingRoom(Long memberId, Long chatRoomId) {
+        Optional<ChattingRoom> chatRoom = chattingRoomRepository.findById(chatRoomId);
+        chatRoom.orElseThrow().setParticipantsCount(chatRoom.orElseThrow().getParticipantsCount() + 1);
+        ChatParticipation chatParticipation = new ChatParticipation(chatRoom.orElseThrow(),memberId);
+        chatParticipationRepository.save(chatParticipation);
+    }
+    @Transactional
+    public void outOfChattingRoom(Long memberId, Long chatRoomId){
+        ChattingRoom room = chattingRoomRepository.findById(chatRoomId).orElseThrow();
+        chatParticipationRepository.deleteByIdAndChatRoom(memberId, room);
+        room.setParticipantsCount(room.getParticipantsCount() - 1);
+        if(room.getParticipantsCount() == 0) chattingRoomRepository.delete(room);
+    }
 
 }

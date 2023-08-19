@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
 @Getter
+@NoArgsConstructor
 public class ChatParticipation {
     @Id
     @GeneratedValue
@@ -19,7 +21,6 @@ public class ChatParticipation {
     @JoinColumn(name = "chattingRoom_id")
     private ChattingRoom chattingRoom;
 
-    @NotEmpty
     private Long memberId;
 
     public ChatParticipation(ChattingRoom chattingRoom, Long memberId) {
