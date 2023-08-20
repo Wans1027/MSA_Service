@@ -2,6 +2,7 @@ package ChattingService.repository;
 
 import ChattingService.entity.ChatParticipation;
 import ChattingService.entity.ChattingRoom;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,8 @@ public interface ChatParticipationRepository extends JpaRepository<ChatParticipa
 
     @Query("select c from ChatParticipation c where c.memberId = :memberId and c.chattingRoom = :chattingRoom")
     List<ChatParticipation> findByMemberIdAndRoom(@Param("memberId") Long memberId, @Param("chattingRoom") ChattingRoom chattingRoom);
+
+    @EntityGraph(attributePaths = {"chattingRoom"})
+    @Query("select c.chattingRoom from ChatParticipation c where c.memberId = :memberId")
+    List<ChattingRoom> findByMemberId(@Param("memberId") Long memberId);
 }

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,7 @@ public class ChattingRoomService {
     @Transactional
     public void inviteChattingRoom(Long memberId, Long chatRoomId) {
         Optional<ChattingRoom> chatRoom = chattingRoomRepository.findById(chatRoomId);
+        if(chatParticipationRepository.findByMemberIdAndRoom(memberId, chatRoom.orElseThrow()).isEmpty()) return;
         chatRoom.orElseThrow().setParticipantsCount(chatRoom.orElseThrow().getParticipantsCount() + 1);
         ChatParticipation chatParticipation = new ChatParticipation(chatRoom.orElseThrow(),memberId);
         chatParticipationRepository.save(chatParticipation);
@@ -39,6 +41,11 @@ public class ChattingRoomService {
         chatParticipationRepository.deleteByIdAndChatRoom(memberId, room);
         room.setParticipantsCount(room.getParticipantsCount() - 1);
         if(room.getParticipantsCount() == 0) chattingRoomRepository.delete(room);
+    }
+
+    public void showMyChattingRoomList(Long memberId){
+        List<ChattingRoom> myChattingRooms = chatParticipationRepository.findByMemberId(memberId);
+
     }
 
 }

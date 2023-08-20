@@ -25,7 +25,7 @@ public class ChattingRoom extends TimeEntity{
 
     private String roomType;
 
-    @OneToMany(mappedBy = "chattingRoom", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "chattingRoom", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<ChatParticipation> chatParticipationList;
 
     public ChattingRoom(String roomName, Integer participantsCount, String roomType) {
