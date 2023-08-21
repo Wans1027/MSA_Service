@@ -43,9 +43,8 @@ public class ChattingRoomService {
         if(room.getParticipantsCount() == 0) chattingRoomRepository.delete(room);
     }
 
-    public void showMyChattingRoomList(Long memberId){
-        List<ChattingRoom> myChattingRooms = chatParticipationRepository.findByMemberId(memberId);
-
+    public List<ChattingRoom> showMyChattingRoomList(Long memberId){
+        return chatParticipationRepository.findByMemberId(memberId);
     }
 
 }
