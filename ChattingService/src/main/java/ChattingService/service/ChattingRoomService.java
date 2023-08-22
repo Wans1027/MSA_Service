@@ -42,7 +42,7 @@ public class ChattingRoomService {
         room.setParticipantsCount(room.getParticipantsCount() - 1);
         if(room.getParticipantsCount() == 0) chattingRoomRepository.delete(room);
     }
-
+    @Transactional
     public List<ChattingRoom> showMyChattingRoomList(Long memberId){
         return chatParticipationRepository.findByMemberId(memberId);
     }
