@@ -33,6 +33,7 @@ class TownServiceTest {
         //when
         List<List<String>> searchedTown = townSearchService.geoJsonRead(127.103179, 37.512567, 5d);
         List<NeighborhoodTown> townList = townRepository.findByMember(member);
+        int townCnt = townList.size();
         //then
         Assertions.assertThat(townList.size()).isEqualTo(searchedTown.size());
         int myTownCnt = 0;
@@ -45,6 +46,11 @@ class TownServiceTest {
             Assertions.assertThat(townList.get(i).getTownCode()).isEqualTo(townCode);
         }
         Assertions.assertThat(myTownCnt).isEqualTo(1);
+        //새로 등록할 경우 기존 데이터가 삭제되었는지 테스트
+        townService.regTown(member, 127.103179, 37.512567);
+        List<NeighborhoodTown> townList2 = townRepository.findByMember(member);
+        Assertions.assertThat(townList2.size()).isEqualTo(townCnt);
+
 
     }
 

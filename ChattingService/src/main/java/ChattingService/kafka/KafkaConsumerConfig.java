@@ -8,6 +8,7 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -25,7 +26,8 @@ import java.util.*;
 @Slf4j
 public class KafkaConsumerConfig {
 
-
+    @Value("${data.host}")
+    String host;
 
     //채팅 컨슈머
     @Bean
@@ -45,7 +47,7 @@ public class KafkaConsumerConfig {
         deserializer.setUseTypeMapperForKey(true);
 
         ImmutableMap<String, Object> config = ImmutableMap.<String, Object>builder()
-                .put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKER)
+                .put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, host)
                 .put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class)
                 .put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, deserializer)
                 .put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest")
@@ -69,7 +71,7 @@ public class KafkaConsumerConfig {
     public ConsumerFactory<String, String> memberConsumerFactory() {
 
         ImmutableMap<String, Object> config = ImmutableMap.<String, Object>builder()
-                .put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaMemberConstants.KAFKA_BROKER)
+                .put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, host)
                 .put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class)
                 .put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class)
                 .put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest")

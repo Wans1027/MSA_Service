@@ -44,9 +44,9 @@ public class TownSearchService {
                     List<String> townInfo = jsonParse(jsonData);
                     townInfo.add(String.valueOf(myLocation));
                     resultList.add(townInfo);
-                    System.out.println(townInfo.get(0));
-                    System.out.println(townInfo.get(1));
-                    System.out.println(townInfo.get(2));
+                    //System.out.println(townInfo.get(0));
+                    //System.out.println(townInfo.get(1));
+                    //System.out.println(townInfo.get(2));
                 }
             }
         } catch (Exception e) {
