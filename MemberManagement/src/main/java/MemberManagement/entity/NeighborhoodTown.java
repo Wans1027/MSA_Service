@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Table(indexes = @Index(name = "index_memberId", columnList = "member_id"))
 public class NeighborhoodTown {
     @Id
     @Column(name = "neighborhood_id")

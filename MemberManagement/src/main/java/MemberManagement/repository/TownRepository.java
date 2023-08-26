@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface TownRepository extends JpaRepository<NeighborhoodTown, Long> {
     @Transactional
     @EntityGraph(attributePaths = {"member"})
@@ -18,7 +19,7 @@ public interface TownRepository extends JpaRepository<NeighborhoodTown, Long> {
     List<NeighborhoodTown> findByMember(@Param("member") Member member);
 
     @Transactional
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("delete from NeighborhoodTown t where t.member = :member")
     void deleteAllByMember(@Param("member") Member member);
 
