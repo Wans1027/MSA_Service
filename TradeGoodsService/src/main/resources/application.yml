@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    trade:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/trade
+      username: root
+      password: "0000"
+    town:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/user
+      username: root
+      password: "0000"
+
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        # show_sql: true
+        format_sql: true
+
+file:
+  dir: E:\savefile\
