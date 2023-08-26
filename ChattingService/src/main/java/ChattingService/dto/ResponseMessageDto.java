@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -17,5 +19,5 @@ public class ResponseMessageDto {
     String detailMessage;
     Long senderId;
     String senderName;
-    String sendTime;
+    LocalDateTime sendTime;
 }

@@ -40,7 +40,7 @@ public class MessageService {
                 .detailMessage(message.getDetailMessage())
                 .senderName(message.getSenderName())
                 .roomId(message.getRoomId())
-                .sendTime(message.getSendTime().toString())
+                .sendTime(message.getSendTime())
                 .senderId(message.getSenderId())
                 .build();
 
