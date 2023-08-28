@@ -29,7 +29,7 @@ cloud:
     s3:
       bucket: <S3 버킷 이름>
     credentials:
-      access-key: <저장해놓은 액세스 키1>
+      access-key: <저장해놓은 액세스 키12>
       secret-key: <저장해놓은 비밀 액세스 키>
     region:
       static: ap-northeast-2
