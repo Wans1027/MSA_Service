@@ -38,4 +38,4 @@ out/
 
 ### Secret key ###
 ##!**/src/main/java/study/board/security/SecretKey.java
-application.yml
+*.yml
