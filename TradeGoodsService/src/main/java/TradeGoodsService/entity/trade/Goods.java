@@ -39,6 +39,9 @@ public class Goods extends TimeEntity {
     @OneToMany(mappedBy = "goods", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<WishList> wishLists;
 
+    @OneToMany(mappedBy = "goods", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    private List<GoodsImage> goodsImages;
+
     public void setStatus(Status status) {
         this.status = status;
     }

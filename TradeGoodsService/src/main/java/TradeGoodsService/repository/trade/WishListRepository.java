@@ -17,15 +17,10 @@ public interface WishListRepository extends JpaRepository<WishList, Long> {
     @Query("delete from WishList w where w.memberId = :memberId and goods.id = :goodsId")
     void deleteWishGoods(@Param("memberId") Long memberId, @Param("goodsId") Long goodsId);
 
-    /**
+    /*
      * clearAutomatically : modifying query를 실행한 직후에 영속성 컨텍스트를 clear 시킨다.
      * flushAutomatically : modifying query를 실행하기 직전에 영속성 컨텍스트를 flush 한다.
      */
-    @Modifying(clearAutomatically = true)
-    @Transactional
-    //@EntityGraph(attributePaths = {"goods"})
-    @Query("delete from WishList w where w.memberId = :memberId")
-    void deleteWishGoodsTest(@Param("memberId") Long memberId);
 
     /*
      * @Modifying 이용 : 자유롭게 조건을 설정하여 단 한 번의 쿼리로 Bulk Delete
