@@ -32,6 +32,10 @@ public class S3UploadService {
         return amazonS3.getUrl(bucket, fileName).toString();
     }
 
+    public String getImageUrl(String filename){
+        return amazonS3.getUrl(bucket, filename).toString();
+    }
+
     public void deleteImage(String originalFilename)  {
         amazonS3.deleteObject(bucket, originalFilename);
     }
