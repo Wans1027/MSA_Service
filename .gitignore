@@ -22,6 +22,7 @@ bin/
 *.iws
 *.iml
 *.ipr
+*.yml
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
@@ -38,4 +39,4 @@ out/
 
 ### Secret key ###
 ##!**/src/main/java/study/board/security/SecretKey.java
-*.yml
+
