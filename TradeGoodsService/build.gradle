@@ -29,7 +29,8 @@ dependencies {
 	//S3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 	implementation 'javax.xml.bind:jaxb-api:2.3.0'
-	//
+	//base64
+	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -3,6 +3,7 @@ package TradeGoodsService.entity.trade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Goods extends TimeEntity {
+@Builder
+public class Goods extends BaseTime {
 
     @Id
     @Column(name = "goods_id")
@@ -34,7 +36,11 @@ public class Goods extends TimeEntity {
     //private Integer viewCount; //조회수
     @NotNull
     private String description; //상품설명
-    //private byte[] goodsThumbnail;
+    private String goodsThumbnail;
+
+    public void setGoodsThumbnail(String goodsThumbnail) {
+        this.goodsThumbnail = goodsThumbnail;
+    }
 
     @OneToMany(mappedBy = "goods", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<WishList> wishLists;
@@ -57,6 +63,22 @@ public class Goods extends TimeEntity {
         this.title = title;
         this.status = status;
         this.sellPrice = sellPrice;
+        this.description = description;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setSellPrice(Integer sellPrice) {
+        this.sellPrice = sellPrice;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
 }
