@@ -28,8 +28,8 @@ public class ImageResizeService {
 
     /* 파일 정보와 리사이즈 값 정하는 메소드 */
     private BufferedImage imageResize(MultipartFile multipartFile) throws IOException {
-        File file = multipartFileToFile(multipartFile);  //리사이즈할 파일 경로
-        InputStream inputStream = new FileInputStream(file);
+        //File file = multipartFileToFile(multipartFile);  //리사이즈할 파일 경로
+        InputStream inputStream = multipartFile.getInputStream();//new FileInputStream(file);
         int width = 480;//1280; // 리사이즈할 가로 길이
         int height = 480;//720; // 리사이즈할 세로 길이
 

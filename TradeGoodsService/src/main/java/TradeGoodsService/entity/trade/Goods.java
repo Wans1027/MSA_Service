@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.List;
 
@@ -32,8 +34,8 @@ public class Goods extends BaseTime {
     private Status status; //상태
     @NotNull
     private Integer sellPrice; //판매가격
-    //@NotNull
-    //private Integer viewCount; //조회수
+    /*@ColumnDefault("0")
+    private Integer viewCount; //조회수*/
     @NotNull
     private String description; //상품설명
     private String goodsThumbnail;

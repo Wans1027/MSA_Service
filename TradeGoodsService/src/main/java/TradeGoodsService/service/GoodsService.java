@@ -60,11 +60,12 @@ public class GoodsService {
         goodsRepository.deleteById(goodsId);
     }
 
+    /*@Transactional
     public void setThumbnail(Long goodsId, MultipartFile multipartFile) {
         Goods goods = goodsRepository.findById(goodsId).orElseThrow();
         goods.setGoodsThumbnail(imageResizeService.runImageSize(multipartFile));
 
-    }
+    }*/
 
     private String textToBase64Encode(String text) {
         return Base64.getEncoder().encodeToString(text.getBytes());
@@ -75,8 +76,8 @@ public class GoodsService {
         return new String(decodedBytes);
     }
 
-    private String imageToBase64Encode(MultipartFile multipartFile) throws IOException {
+    private byte[] imageToBase64Encode(MultipartFile multipartFile) throws IOException {
         byte[] imageBytes = multipartFile.getBytes();
-        return Base64.getEncoder().encodeToString(imageBytes);
+        return imageBytes;
     }
 }

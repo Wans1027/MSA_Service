@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/goods")
+//@RequestMapping("/goods")
 public class FileController {
 
     private final FileStoreService fileStoreService;
@@ -24,7 +24,6 @@ public class FileController {
     public void saveImage(@RequestParam("file") List<MultipartFile> form, @PathVariable("goodsId") Long goodsId) throws IOException {
         if(form.isEmpty()) return;
         fileStoreService.storeFileDistinct(form, goodsId);
-        goodsService.setThumbnail(goodsId, form.get(0));
     }
     @GetMapping("/images/{goodsId}")
     public ResponseEntity<Result<String>> loadImagesUrls(@PathVariable("goodsId") Long goodsId){

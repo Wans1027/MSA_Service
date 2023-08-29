@@ -32,7 +32,8 @@ public class FileStoreService {
     @Transactional
     public void storeFileDistinct(List<MultipartFile> multipartFiles, Long goodsId) {
         Optional<List<GoodsImage>> goodsImages = goodsImageRepository.findByGoodsId(goodsId);
-        if(goodsImages.isPresent()){
+        System.out.println("옵셔널존재?"+goodsImages.isPresent());
+        if(!goodsImages.orElseThrow().isEmpty()){
             List<GoodsImage> images = goodsImages.orElseThrow();
             for (GoodsImage image : images) {
                 String imageName = image.getImageName();
@@ -48,7 +49,8 @@ public class FileStoreService {
                 throw new IllegalArgumentException();
             }
         });
-
+        Optional<GoodsImage> thumbNailUrl = goodsImageRepository.findByGoodsId(goodsId).orElseThrow().stream().findFirst();
+        goods.setGoodsThumbnail(thumbNailUrl.orElseThrow().getImageName());
     }
     @Transactional
     public List<String> getImageUrls(Long goodsId) throws Exception {
