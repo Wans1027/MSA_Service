@@ -2,6 +2,7 @@ package TradeGoodsService.controller;
 
 import TradeGoodsService.entity.trade.Result;
 import TradeGoodsService.service.FileStoreService;
+import TradeGoodsService.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,16 +14,19 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/goods")
 public class FileController {
 
     private final FileStoreService fileStoreService;
+    private final GoodsService goodsService;
 
-    @PostMapping("/items/new/{goodsId}")
+    @PostMapping("/images/new/{goodsId}")
     public void saveImage(@RequestParam("file") List<MultipartFile> form, @PathVariable("goodsId") Long goodsId) throws IOException {
         if(form.isEmpty()) return;
         fileStoreService.storeFileDistinct(form, goodsId);
+        goodsService.setThumbnail(goodsId, form.get(0));
     }
-    @GetMapping("/items/load/{goodsId}")
+    @GetMapping("/images/{goodsId}")
     public ResponseEntity<Result<String>> loadImagesUrls(@PathVariable("goodsId") Long goodsId){
         try {
             List<String> imageUrls = fileStoreService.getImageUrls(goodsId);
@@ -31,6 +35,4 @@ public class FileController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-
 }

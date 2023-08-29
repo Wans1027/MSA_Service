@@ -24,6 +24,7 @@ class WishListServiceTest {
     WishListService wishListService;
 
     @Test
+    @Transactional
     void addWishGoods() {
         Goods goods = goodsRepository.save(new Goods(1L, 100, 1, "상품", Goods.Status.New, 1000, "상품입니다."));
     }

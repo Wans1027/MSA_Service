@@ -50,7 +50,7 @@ public class FileStoreService {
         });
 
     }
-
+    @Transactional
     public List<String> getImageUrls(Long goodsId) throws Exception {
         Optional<List<GoodsImage>> byGoodsId = goodsImageRepository.findByGoodsId(goodsId);
         if(byGoodsId.isPresent()){
@@ -58,6 +58,10 @@ public class FileStoreService {
             return goodsImages.stream().map(goodsImage -> s3UploadService.getImageUrl(goodsImage.getImageName())).collect(Collectors.toList());
         }
         throw new Exception();
+    }
+
+    public void deleteImage(String filename){
+        s3UploadService.deleteImage(filename);
     }
 
     private String storeFile(MultipartFile multipartFile) throws IOException {
