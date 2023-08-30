@@ -1,5 +1,6 @@
 package TradeGoodsService.controller;
 
+import TradeGoodsService.entity.dto.CreateGoodsDto;
 import TradeGoodsService.entity.dto.GoodsDto;
 import TradeGoodsService.entity.trade.Goods;
 import TradeGoodsService.entity.trade.Result;
@@ -17,7 +18,7 @@ public class GoodsController {
     private final GoodsService goodsService;
 
     @PostMapping("/goods")
-    public Long createNewGoods(@RequestBody GoodsDto goodsDto){
+    public Long createNewGoods(@RequestBody CreateGoodsDto goodsDto){
         System.out.println(goodsDto.getDescription());
         return goodsService.saveGoods(goodsDto.getSellerId(), goodsDto.getSellingAreaId(), goodsDto.getSellPrice(),
                 goodsDto.getCategoryId(), goodsDto.getTitle(), goodsDto.getDescription(), goodsDto.getStatus());
@@ -38,11 +39,6 @@ public class GoodsController {
     public Long modifyGoods(@RequestBody GoodsDto goodsDto, @PathVariable("goodsId") Long goodsId){
         return goodsService.updateGoods(goodsId, goodsDto.getSellPrice(),
                 goodsDto.getCategoryId(), goodsDto.getTitle(), goodsDto.getDescription(), goodsDto.getStatus());
-    }
-
-    @Data
-    private static class AreaIdList{
-        private List<Integer> areaIds;
     }
 
 }
