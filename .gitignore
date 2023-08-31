@@ -40,4 +40,4 @@ out/
 
 ### Secret key ###
 ##!**/src/main/java/study/board/security/SecretKey.java
-
+!**/TradeGoodsService/src/main/resources/test.json
