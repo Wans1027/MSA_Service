@@ -14,10 +14,10 @@ import java.util.Optional;
 public interface MemberTokenRepository extends JpaRepository<MemberToken, Long> {
 
     @Transactional(readOnly = true)
-    @Query("select t MemberToken t where t.memberId = :memberId")
+    @Query("select t from MemberToken t where t.memberId = :memberId")
     Optional<MemberToken> findByMemberId(@Param("memberId") Long memberId);
 
     @Transactional(readOnly = true)
-    @Query("select t.token MemberToken t where t.memberId in :memberIds")
+    @Query("select t.token from MemberToken t where t.memberId in :memberIds")
     List<String> findTokensByMemberIdList(@Param("memberIds") List<Long> memberIdList);
 }

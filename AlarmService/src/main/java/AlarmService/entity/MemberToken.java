@@ -16,7 +16,7 @@ public class MemberToken {
     @GeneratedValue
     @Column(name = "member_token_id")
     private Long id;
-    @NotEmpty
+    //@NotEmpty
     private Long memberId;
     @NotEmpty
     private String token;
