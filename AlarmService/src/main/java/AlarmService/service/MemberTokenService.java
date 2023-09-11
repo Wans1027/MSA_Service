@@ -28,12 +28,6 @@ public class MemberTokenService {
         }
     }
 
-    /**
-     * 만약 채팅기능에서 채팅을 보내면 매번의 채팅마다 토큰이 조회되어야 하는데 이 문제의 해결법은?
-     * 레디스를 활용!
-     * 그럼 레디스는 채팅서버에 둘까 알람서버에 둘까?
-     *
-     */
     @Transactional
     @Cacheable(value = "Token", key = "#memberId", cacheManager = "contentCacheManager")
     public MemberToken getToken(Long memberId){

@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Builder
+@Table(indexes = @Index(name = "index_area_id", columnList = "sellingAreaId"))
 public class Goods extends BaseTime {
 
     @Id
