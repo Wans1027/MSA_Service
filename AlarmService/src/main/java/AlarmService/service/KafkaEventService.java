@@ -17,7 +17,7 @@ public class KafkaEventService {
     private final MemberTokenService memberTokenService;
 
     @KafkaListener(topics = KafkaConstants.KAFKA_TOPIC, groupId = KafkaConstants.GROUP_ID, containerFactory = "kafkaListenerContainerFactory")
-    public void consume(AlarmInfo alarmInfo) throws IOException {
+    public void consume(AlarmInfo alarmInfo){
         log.info("Consumed Message : " + alarmInfo.getTitle());
         List<String> tokenList = memberTokenService.getTokenList(alarmInfo.getMemberIdList());
         memberTokenService.sendPushAlarm(tokenList, alarmInfo.getTitle(), alarmInfo.getBody(), alarmInfo.getServiceType(), 10L);

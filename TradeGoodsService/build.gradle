@@ -31,6 +31,8 @@ dependencies {
 	implementation 'javax.xml.bind:jaxb-api:2.3.0'
 	//base64
 	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+	//ImmutableMap
+	implementation 'com.google.guava:guava:31.1-jre'
 
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	compileOnly 'org.projectlombok:lombok'

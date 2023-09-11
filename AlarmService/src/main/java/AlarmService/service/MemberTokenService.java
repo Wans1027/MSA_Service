@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -36,7 +37,10 @@ public class MemberTokenService {
 
     @Transactional
     public List<String> getTokenList(List<Long> memberIdList){
-        return memberTokenRepository.findTokensByMemberIdList(memberIdList);
+        List<String> tokenList = new ArrayList<>();
+        memberIdList.forEach(id -> tokenList.add(getToken(id).getToken()));
+        //return memberTokenRepository.findTokensByMemberIdList(memberIdList);
+        return tokenList;
     }
 
     public void sendPushAlarm(List<String> tokenList, String title, String body, String type, Long detailId){
