@@ -3,7 +3,7 @@ package ChattingService.controller;
 import ChattingService.dto.MessageDto;
 import ChattingService.dto.Result;
 import ChattingService.entity.Message;
-import ChattingService.kafka.KafkaConstants;
+import ChattingService.kafka.constants.KafkaConstants;
 import ChattingService.service.MessageService;
 import ChattingService.websocket.KafkaMessageService;
 import lombok.RequiredArgsConstructor;

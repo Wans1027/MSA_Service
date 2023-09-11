@@ -1,4 +1,4 @@
-package ChattingService.kafka;
+package ChattingService.kafka.constants;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.criteria.CriteriaBuilder;

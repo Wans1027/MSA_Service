@@ -1,7 +1,8 @@
 package ChattingService.kafka;
 
-import ChattingService.dto.MessageDto;
 import ChattingService.dto.ResponseMessageDto;
+import ChattingService.kafka.constants.KafkaConstants;
+import ChattingService.kafka.constants.KafkaMemberConstants;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;

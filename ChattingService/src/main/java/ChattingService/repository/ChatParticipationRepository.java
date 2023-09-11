@@ -26,4 +26,8 @@ public interface ChatParticipationRepository extends JpaRepository<ChatParticipa
     @EntityGraph(attributePaths = {"chattingRoom"})
     @Query("select c.chattingRoom from ChatParticipation c where c.memberId = :memberId")
     List<ChattingRoom> findByMemberId(@Param("memberId") Long memberId);
+
+    @EntityGraph(attributePaths = {"chattingRoom"})
+    @Query("select c.memberId from ChatParticipation c where c.chattingRoom.id = :chatRoomId")
+    List<Long> findMemberIdListByChattingRoomId(@Param("chatRoomId") Long chatRoomId);
 }
