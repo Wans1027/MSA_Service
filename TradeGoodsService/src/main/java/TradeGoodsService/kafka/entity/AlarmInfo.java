@@ -1,4 +1,4 @@
-package TradeGoodsService.kafka;
+package TradeGoodsService.kafka.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,7 @@
 package TradeGoodsService.kafka;
 
 import TradeGoodsService.kafka.constants.KafkaMemberConstants;
+import TradeGoodsService.kafka.entity.AlarmInfo;
 import com.google.common.collect.ImmutableMap;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
