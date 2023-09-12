@@ -1,9 +1,12 @@
 package ChattingService.controller;
 
+import ChattingService.dto.ChattingRoomDto;
 import ChattingService.dto.MessageDto;
 import ChattingService.dto.Result;
+import ChattingService.entity.ChattingRoom;
 import ChattingService.entity.Message;
 import ChattingService.kafka.constants.KafkaConstants;
+import ChattingService.service.ChattingRoomService;
 import ChattingService.service.MessageService;
 import ChattingService.websocket.KafkaMessageService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 public class MessageController {
     private final KafkaMessageService kafkaMessageService;
     private final MessageService messageService;
+    private final ChattingRoomService chattingRoomService;
 
 
     @MessageMapping("/message")
@@ -33,5 +38,12 @@ public class MessageController {
     public Result<Message> getMessages(@PathVariable Long roomId){
         List<Message> messages = messageService.getEventList(roomId);
         return new Result<>(messages, messages.size());
+    }
+
+    @GetMapping("/chattingList/{memberId}")
+    public Result<ChattingRoomDto> getMyChattingRooms(@PathVariable Long memberId){
+        List<ChattingRoom> chattingRooms = chattingRoomService.showMyChattingRoomList(memberId);
+        List<ChattingRoomDto> chattingRoomDtoList = chattingRooms.stream().map(r -> new ChattingRoomDto(r.getId(), r.getParticipantsCount(), r.getRoomType())).toList();
+        return new Result<>(chattingRoomDtoList, chattingRoomDtoList.size());
     }
 }
