@@ -23,7 +23,7 @@ public class MessageController {
 
 
     @MessageMapping("/message")
-    public void sendMessage(MessageDto message) throws ExecutionException, InterruptedException {
+    public void sendMessage(MessageDto message){
         log.info("성공");
         kafkaMessageService.send(KafkaConstants.KAFKA_TOPIC, message);
 
@@ -33,15 +33,5 @@ public class MessageController {
     public Result<Message> getMessages(@PathVariable Long roomId){
         List<Message> messages = messageService.getEventList(roomId);
         return new Result<>(messages, messages.size());
-    }
-
-    @PostMapping("/test")
-    public void testKafka(@RequestBody MessageDto messageDto){
-        kafkaMessageService.send(KafkaConstants.KAFKA_TOPIC, messageDto);
-    }
-
-    @GetMapping("/test2")
-    public void sendMember(){
-        kafkaMessageService.sendMemberTopic();
     }
 }
