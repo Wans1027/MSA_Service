@@ -43,7 +43,7 @@ public class MessageController {
     @GetMapping("/chattingList/{memberId}")
     public Result<ChattingRoomDto> getMyChattingRooms(@PathVariable Long memberId){
         List<ChattingRoom> chattingRooms = chattingRoomService.showMyChattingRoomList(memberId);
-        List<ChattingRoomDto> chattingRoomDtoList = chattingRooms.stream().map(r -> new ChattingRoomDto(r.getId(), r.getParticipantsCount(), r.getRoomType())).toList();
+        List<ChattingRoomDto> chattingRoomDtoList = chattingRooms.stream().map(r -> new ChattingRoomDto(r.getId(), r.getRoomName(),r.getParticipantsCount(), r.getRoomType())).toList();
         return new Result<>(chattingRoomDtoList, chattingRoomDtoList.size());
     }
 }

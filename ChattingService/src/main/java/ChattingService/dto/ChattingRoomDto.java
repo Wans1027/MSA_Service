@@ -7,6 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ChattingRoomDto {
     Long id;
+    String roomName;
     Integer participantsCount;
     String roomType;
 }
