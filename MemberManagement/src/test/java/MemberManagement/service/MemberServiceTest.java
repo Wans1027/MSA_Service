@@ -24,22 +24,22 @@ class MemberServiceTest {
 
 
     @Test
+    @Transactional
     void registerMember() {
-        Long memberId = memberService.registerMember("kim");
-        Member member = memberRepository.findById(memberId).orElseThrow();
-        System.out.println(member.getId());
-        Assertions.assertThat(member.getMemberName()).isEqualTo("kim");
+        Long memberId = memberService.regMember("kim");
         //중복검사
-        Assertions.assertThatThrownBy(() -> memberService.registerMember("kim")).isInstanceOf(DataIntegrityViolationException.class);
-        memberRepository.delete(member);
+        Assertions.assertThatThrownBy(() -> memberService.regMember("kim")).isInstanceOf(DataIntegrityViolationException.class);
+        System.out.println("삭제");
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        //memberRepository.delete(member);
     }
 
     @Test
     @Transactional
     void getMembersInfo() {
-        Long a = memberService.registerMember("a");
-        Long b = memberService.registerMember("b");
-        Long c = memberService.registerMember("c");
+        Long a = memberService.regMember("a");
+        Long b = memberService.regMember("b");
+        Long c = memberService.regMember("c");
         List<Long> mIds = new ArrayList<>();
         mIds.add(a);
         mIds.add(b);

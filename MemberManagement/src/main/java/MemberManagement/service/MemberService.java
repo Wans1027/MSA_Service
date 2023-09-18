@@ -13,8 +13,8 @@ import java.util.List;
 @Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
-    public Long registerMember(String name){
-        Member member = memberRepository.save(new Member(name));
+    public Long regMember(String name){
+        Member member = memberRepository.saveAndFlush(new Member(name));
         return member.getId();
     }
 

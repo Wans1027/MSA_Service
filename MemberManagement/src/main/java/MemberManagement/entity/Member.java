@@ -23,7 +23,7 @@ public class Member extends TimeEntity{
     private String memberName;
     private String memberPicture;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<NeighborhoodTown> neighborhoodTownList;
 
 
