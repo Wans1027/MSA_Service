@@ -25,13 +25,12 @@ class MemberServiceTest {
 
     @Test
     @Transactional
-    void registerMember() {
+    void 회원가입중복검사() {
         Long memberId = memberService.regMember("kim");
         //중복검사
-        Assertions.assertThatThrownBy(() -> memberService.regMember("kim")).isInstanceOf(DataIntegrityViolationException.class);
-        System.out.println("삭제");
-        Member member = memberRepository.findById(memberId).orElseThrow();
-        //memberRepository.delete(member);
+        Assertions.assertThatThrownBy(() -> memberService.regMember("kim"))
+                .isInstanceOf(IllegalArgumentException.class);
+
     }
 
     @Test
